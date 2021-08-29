@@ -4,48 +4,29 @@
  */
 var reverse = function(x) {
 
-    // 宣告 input ，使得轉換過程中不需要頻繁用到 x 值
-    let input = x
+    // 宣告 positiveNum ，使輸入的數值都轉為正數
+    let positiveNum = x > 0 ? x : -x;
 
-    // 當 input 為負數時，先將它轉為正數（使用絕對值）
-    if( x<0 ){
-        input = Math.abs(x)
-    }
+    // 將 positiveNum 轉為 string，以便排列重組
+    let positiveNumAsStr = positiveNum.toString()
 
-    // 將 input 屬性轉為字串性質，以便重新排列，同時設定一個空陣列，將重新排列的內容依序安排進這個陣列
-    let y = input.toString()
-    let reverseInt = []
-
-    // 在 for 迴圈裡，使用 unshift，將字放進空陣列（每次都將新物件加入在第一個物件位置） --- 這裡要注意是字串的屬性
-    for(let i=0; i< y.length; i++){
-        reverseInt.unshift(y[i])
-    }
-
-    //  宣告一個空字串，這個空字串是要將字串中的物件個體，組合成一個完整的字串，故使用 for 迴圈依序加進空字串中
+    //  宣告一個空字串，再使用 for loop 從字串最後端依序重組
     let newString = ""
-    for(let i=0; i<reverseInt.length; i++){
-        newString = newString + reverseInt[i]
+    for(let i = positiveNumAsStr.length -1 ; i>=0; i--){
+        newString = newString + positiveNumAsStr[i]
     }
 
-    //  使用 Number()，讓 string 轉回 num
-    let result = Number(newString)
-
-    //  最後要注意，負數值要再轉回負數
-    if(x<0){
-        result = -Math.abs(result)
-    }
+    //  宣告最後要回傳的值result，使用 Number()，讓 string 轉回 num
+    let result = x < 0 ? -Number(newString) : Number(newString)
 
     // 特別注意，如果最後 reverse 的值超過 “32-bit integer range” 的範圍，要回傳值 0。（這裡也就是hard code 的部分）
-    if( result < Math.pow(-2, 31) || result > Math.pow(2, 31)-1 ){
+    if( result < Math.pow(-2, 31) || result > Math.pow(2, 31) -1 ){
         return 0
     }
 
     return result
 };
 
-//  let x = 123
-//  console.log((123).toString())
-//console.log(Math.pow(-2, 31), Math.pow(2, 31)-1)
 // assertion code
 tests = [
 	[123, 321],
@@ -75,3 +56,4 @@ for(let i=0; i< tests.length; i++){
 
 console.log("====================")
 console.log("Pig loves Pig!妳是巨大好豬！")
+console.log("====================")
